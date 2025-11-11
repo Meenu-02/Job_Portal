@@ -1,0 +1,103 @@
+
+
+{% extends 'seeker/seeker.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #0d1117;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .job-detail {
+        max-width: 900px;
+        margin: 60px auto;
+        padding: 20px;
+        line-height: 1.8;
+    }
+
+    .job-title {
+        font-size: 2rem;
+        font-weight: 600;
+        color: #4a90e2;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .company-name {
+        font-size: 1.3rem;
+        color: #ccc;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .job-info {
+        background: transparent;
+        color: #ddd;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .job-info p {
+        margin: 10px 0;
+    }
+
+    .buttons {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        border-radius: 6px;
+        text-decoration: none;
+        color: white;
+        font-weight: 500;
+        margin: 0 10px;
+        transition: background-color 0.2s ease;
+    }
+
+    .back-btn {
+        background-color: #6c757d;
+    }
+
+    .back-btn:hover {
+        background-color: #868e96;
+    }
+
+    .apply-btn {
+        background-color: #1e3a8a;
+    }
+
+    .apply-btn:hover {
+        background-color: #3742fa;
+    }
+</style>
+
+<div class="job-detail">
+    <h1 class="job-title">{{ details.title }}</h1>
+    <h3 class="company-name">{{ details.company_name }}</h3>
+
+    <div class="job-info">
+        <p><strong>Location:</strong> {{ details.location }}</p>
+        <p><strong>Job Type:</strong> {{ details.job_type }}</p>
+        <p><strong>Salary:</strong> {{ details.salary }}</p>
+
+        <p><strong>Description:</strong> {{ details.description }}</p>
+      <p><strong>Requirments:</strong> {{ details.requirements }}</p>
+      <p><strong>Deadline:</strong> {{ details.application_deadline }}</p>
+
+    </div>
+
+    <div class="buttons">
+        <a href="{% url 'jobs' %}" class="btn back-btn">Return</a>
+        <a href="#" class="btn apply-btn">Apply </a>
+    </div>
+</div>
+
+{% endblock %}
+

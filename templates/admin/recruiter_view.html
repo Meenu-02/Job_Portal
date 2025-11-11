@@ -1,0 +1,34 @@
+{% extends 'admin/admin.html' %}
+{% block content %}
+
+<table class="table text-start align-middle table-bordered table-hover mb-0">
+  <thead>
+    <tr class="text-white">
+      <th scope="col">Sl.No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+
+      <th scope="col">Phone.No</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
+
+    </tr>
+  </thead>
+  <tbody>
+  {% for recruiter in view_recruiter %}
+    <tr>
+      <th scope="row">{{ forloop.counter }}</th>
+      <td>{{ recruiter.name }}</td>
+      <td>{{ recruiter.email }}</td>
+
+      <td>{{ recruiter.phone }}</td>
+       <td><a class="btn btn btn-sm btn-primary" href="{% url 'update_recruiter' recruiter.id %}" role="button">Update</a></td>
+       <td><a class="btn btn btn-sm btn-primary" href="{% url 'delete_recruiter' recruiter.id %}" role="button">Delete</a></td>
+
+
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

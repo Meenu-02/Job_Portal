@@ -1,0 +1,104 @@
+{% extends 'seeker/seeker.html' %}
+
+{% block content %}
+<style>
+    body {
+        background-color: #0d1117;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        min-height: 100vh;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 20px;
+    }
+
+    .job-card {
+        background: #ffffff;
+        color: #000;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 25px;
+        width: 80%;
+        max-width: 1000px;
+        text-align: center; /* centers text inside the card */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .job-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    }
+
+    .job-title {
+        color: #1e3a8a;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+    }
+
+    .company-name {
+        color: #333;
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .job-meta {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .apply-btn {
+        background-color: #1e3a8a;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-top: 10px;
+        display: inline-block;
+    }
+
+    .apply-btn:hover {
+        background-color: #3742fa;
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #ffffff;
+    }
+</style>
+
+<div class="container">
+    <h2>Available Job Openings</h2>
+
+    {% for job in jobs %}
+    <div class="job-card">
+        <h4 class="job-title">{{ job.title }}</h4>
+        <p class="company-name">{{ job.company_name }}</p>
+        <p class="job-meta">
+            📍 {{ job.location }} | 💼 {{ job.job_type }} | 💰 {{ job.salary }}
+        </p>
+          <hr>
+    <a href="{% url 'job_details' job.id %}" class="apply-btn">View Details</a>
+
+
+
+    </div>
+    {% empty %}
+<!--    <div class="text-center text-light">-->
+<!--        <h5>No job postings available at the moment.</h5>-->
+<!--    </div>-->
+    {% endfor %}
+</div>
+
+{% endblock %}

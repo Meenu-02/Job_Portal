@@ -1,0 +1,67 @@
+{% extends 'seek_reg.html' %}
+{% block login_page %}
+<style>
+    /* Make form wider and more spacious */
+    .wrap-login100 {
+        width: 700px;  /* increase container width */
+        padding: 50px 70px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 15px;
+    }
+
+    /* White form labels */
+    label {
+        color: white !important;
+        font-weight: 500;
+    }
+
+    /* Make inputs wider and text black */
+    .form-control, .input100, input, select, textarea {
+        width: 100% !important;
+        color: black !important;
+        background-color: white !important;
+        border: 1px solid #ccc !important;
+        border-radius: 6px !important;
+        padding: 10px 15px !important;
+    }
+
+    /* Spacing between fields */
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    /* Register button styling */
+    .login100-form-btn {
+        width: 100%;
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+        border-radius: 25px;
+        padding: 12px 0;
+        transition: 0.3s;
+    }
+
+    .login100-form-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+
+{%load crispy_forms_tags %}
+<form method="post">
+
+    {% csrf_token %}
+
+{{ form1|crispy }}
+
+
+
+{{ form2|crispy }}
+
+<!--<div class="container-login100-form-btn">-->
+						<button class="login100-form-btn" type="submit">
+						Register
+					</button>
+<!--				</div>-->
+
+</form>
+{% endblock %}
