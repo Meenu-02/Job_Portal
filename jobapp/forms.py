@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
-from jobapp.models import Login, Seeker, Recruiter
+from jobapp.models import Login, Recruiter, Job_Seeker, JobPost, Profile
 
 
 class LoginRegister(UserCreationForm):
@@ -15,7 +15,7 @@ class LoginRegister(UserCreationForm):
 
 class SeekerRegister(forms.ModelForm):
     class Meta:
-        model = Seeker
+        model = Job_Seeker
         fields = '__all__'
         exclude = ('user',)
 
@@ -25,3 +25,14 @@ class RecruiterRegister(forms.ModelForm):
         fields = '__all__'
         exclude = ('user',)
 
+class JobPostForm(forms.ModelForm):
+    class Meta:
+        model = JobPost
+        fields ='__all__'
+        exclude = ('user',)
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = '__all__'
+        exclude = ('user',)

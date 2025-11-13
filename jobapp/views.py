@@ -1,9 +1,10 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login
-from django.core.checks import messages
+
 from django.shortcuts import render, redirect
 
-from jobapp.forms import LoginRegister, SeekerRegister, RecruiterRegister
-from jobapp.models import Recruiter, Seeker
+from jobapp.forms import LoginRegister, SeekerRegister, RecruiterRegister, JobPostForm
+from jobapp.models import Recruiter, Job_Seeker
 
 
 # Create your views here.
@@ -95,7 +96,7 @@ def login_view(request):
 
 
 def view_seeker(request):
-    data= Seeker.objects.all()
+    data= Job_Seeker.objects.all()
     return render(request,'admin/seeker_view.html',{'view_seeker':data})
 
 def view_recruiter(request):
@@ -103,7 +104,7 @@ def view_recruiter(request):
     return render(request,'admin/recruiter_view.html',{'view_recruiter':data})
 
 def delete_seeker(request,id):
-    data=Seeker.objects.get(id=id)
+    data=Job_Seeker.objects.get(id=id)
 
     data.delete()
     return redirect('view_seeker')
@@ -115,7 +116,7 @@ def delete_recruiter(request,id):
     return redirect('view_recruiter')
 
 def update_seeker(request,id):
-    data=Seeker.objects.get(id=id)
+    data=Job_Seeker.objects.get(id=id)
     form=SeekerRegister(instance=data) #form will be with data
 
 
@@ -137,6 +138,33 @@ def update_recruiter(request,id):
              details.save()
              return  redirect('view_recruiter')
     return render(request,'admin/recruiter_update.html',{'update':form})
+
+
+def job_form_upload(request):
+
+    data=request.user
+    recruiter_data=Recruiter.objects.get(user=data)
+
+
+
+
+    if request.method == 'POST':
+        form = JobPostForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            object = form.save(commit=False)
+            object.user = recruiter_data
+            object.save()
+
+            return redirect('home')
+    else:
+        form = JobPostForm()
+    return render(request, 'recruiter/job_form.html', {
+        'form': form
+    })
+
+
+
 
 
 
