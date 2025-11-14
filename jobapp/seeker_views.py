@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from jobapp.forms import ProfileForm
 from jobapp.models import JobPost, Profile, Job_Seeker
@@ -13,30 +13,39 @@ def job_details(request,id):
     return render(request,'seeker/job_details.html',{'details':data})
 
 def profile(request):
+    seeker = get_object_or_404(Job_Seeker, user=request.user)
 
-    data=request.user
-    profile_data=Profile.objects.get(Job_Seeker,user=data)
+    # check if profile exists, else create new
+    profile_instance, created = Profile.objects.get_or_create(user=seeker)
 
 
 
 
     if request.method == 'POST':
-        form = ProfileForm(request.POST, request.FILES)
+        form = ProfileForm(request.POST, request.FILES, instance=profile_instance)
 
         if form.is_valid():
-            object = form.save(commit=False)
-            object.user = profile_data
-            object.save()
-
-            return redirect('profile_view')
+            form.save()
+            return redirect('jobs')
     else:
-        form = ProfileForm()
+             form = ProfileForm(instance=profile_instance)
+
+
     return render(request, 'seeker/profile_form.html', {
         'form': form
     })
 
-def profile_view(request,id):
-    data = Profile.objects.get(id=id)
-    return render(request, 'seeker/profile_view.html', {'view': data})
+def profile_view(request):
+
+    # Get Job_Seeker linked to logged-in Login user
+    seeker = get_object_or_404(Job_Seeker, user=request.user)
+
+    # Get Profile linked to Job_Seeker
+    profile = get_object_or_404(Profile, user=seeker)
+
+    return render(request, 'seeker/profile_view.html', {
+        'profile': profile
+    })
+
 
 

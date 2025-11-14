@@ -28,7 +28,7 @@ path('update_recruiter/<int:id>/', views.update_recruiter, name='update_recruite
     path('jobs',seeker_views.jobs,name='jobs'),
 path('job_details/<int:id>/', seeker_views.job_details, name='job_details'),
     path('profile',seeker_views.profile,name='profile'),
-    path('profile_view/<int:id>/',seeker_views.profile_view,name='profile_view')
+    path('profile_view',seeker_views.profile_view,name='profile_view')
 
 
 
