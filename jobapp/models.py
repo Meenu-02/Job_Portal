@@ -71,7 +71,9 @@ class Profile(models.Model):
     github = models.URLField(blank=True, null=True)
     portfolio = models.URLField(blank=True, null=True)
 
-
+class JobApplication(models.Model):
+    job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    seeker = models.ForeignKey(Job_Seeker, on_delete=models.CASCADE)
 
 
 

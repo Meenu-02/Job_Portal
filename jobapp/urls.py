@@ -21,14 +21,19 @@ path('',views.home,name='home'),
 path('update_seeker/<int:id>/', views.update_seeker, name='update_seeker'),
 path('update_recruiter/<int:id>/', views.update_recruiter, name='update_recruiter'),
 
+#recruiter
  path('jobform',views.job_form_upload,name='jobform'),
     path('joblist',recruiter_views.joblist,name='joblist'),
+    path('view_app',recruiter_views.view_applicants,name='view_app'),
+path('app_profile/<int:id>/', recruiter_views.applicant_profile_view, name='app_profile'),
+
 
     #seeker
     path('jobs',seeker_views.jobs,name='jobs'),
 path('job_details/<int:id>/', seeker_views.job_details, name='job_details'),
     path('profile',seeker_views.profile,name='profile'),
-    path('profile_view',seeker_views.profile_view,name='profile_view')
+    path('profile_view',seeker_views.profile_view,name='profile_view'),
+    path('apply_job/<int:id>/',seeker_views.apply_job,name='apply_job')
 
 
 
