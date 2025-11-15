@@ -1,0 +1,40 @@
+{% extends "seeker/seeker.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+<h2>Shortlisted Jobs</h2>
+
+{% if shortlisted_jobs %}
+<table class="table text-start align-middle table-bordered table-hover mb-0">
+    <thead>
+        <tr>
+            <th>Sl.no</th>
+            <th>Job Title</th>
+            <th>Company</th>
+
+
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for s in shortlisted_jobs %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ s.job.title }}</td>
+            <td>{{ s.job.company_name }}</td>
+
+        </tr>
+        {% endfor %}
+
+    </tbody>
+</table>
+
+{% else %}
+<p>You have not applied to any jobs.</p>
+{% endif %}
+
+
+
+</div>
+{% endblock %}

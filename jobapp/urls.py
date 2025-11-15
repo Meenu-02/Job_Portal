@@ -26,14 +26,20 @@ path('update_recruiter/<int:id>/', views.update_recruiter, name='update_recruite
     path('joblist',recruiter_views.joblist,name='joblist'),
     path('view_app',recruiter_views.view_applicants,name='view_app'),
 path('app_profile/<int:id>/', recruiter_views.applicant_profile_view, name='app_profile'),
-
+    path('reject/<int:id>/',recruiter_views.reject_profile,name='reject'),
+    path('shortlist/<int:id>/',recruiter_views.shortlist_applicant,name='shortlist'),
+    path('short_view',recruiter_views.shortlist_view,name='short_view'),
 
     #seeker
     path('jobs',seeker_views.jobs,name='jobs'),
 path('job_details/<int:id>/', seeker_views.job_details, name='job_details'),
     path('profile',seeker_views.profile,name='profile'),
     path('profile_view',seeker_views.profile_view,name='profile_view'),
-    path('apply_job/<int:id>/',seeker_views.apply_job,name='apply_job')
+    path('apply_job/<int:id>/',seeker_views.apply_job,name='apply_job'),
+path('app_jobs/', seeker_views.seeker_applied_jobs, name='app_jobs'),
+path('short_jobs/', seeker_views.seeker_shortlisted_jobs, name='short_jobs')
+
+
 
 
 

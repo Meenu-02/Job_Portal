@@ -75,6 +75,12 @@ class JobApplication(models.Model):
     job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
     seeker = models.ForeignKey(Job_Seeker, on_delete=models.CASCADE)
 
+class ShortlistedCandidate(models.Model):
+    job = models.ForeignKey(JobPost, on_delete=models.CASCADE)
+    seeker = models.ForeignKey(Job_Seeker, on_delete=models.CASCADE)
+
+
+
 
 
 

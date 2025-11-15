@@ -1,0 +1,40 @@
+{% extends "seeker/seeker.html" %}
+
+{% block content %}
+<div class="container mt-4">
+
+<h2>Applied Jobs</h2>
+
+{% if applied_jobs %}
+<table class="table text-start align-middle table-bordered table-hover mb-0">
+    <thead>
+        <tr>
+            <th>Sl.no</th>
+            <th>Job Title</th>
+            <th>Company</th>
+
+            <th>Status</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for application in applied_jobs %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ application.job.title }}</td>
+            <td>{{ application.job.company_name }}</td>
+            <td>Applied</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% else %}
+<p>You have not applied to any jobs.</p>
+{% endif %}
+
+
+
+</div>
+{% endblock %}

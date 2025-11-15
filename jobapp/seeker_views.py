@@ -2,7 +2,7 @@ from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 
 from jobapp.forms import ProfileForm
-from jobapp.models import JobPost, Profile, Job_Seeker, JobApplication
+from jobapp.models import JobPost, Profile, Job_Seeker, JobApplication, ShortlistedCandidate
 
 
 def jobs(request):
@@ -72,3 +72,32 @@ def apply_job(request,id):
 
         messages.success(request, "You successfully applied for the job!")
         return redirect('jobs')
+
+
+def seeker_applied_jobs(request):
+
+
+    # Check if Job_Seeker exists for this user
+
+
+    # Fetch seeker
+    seeker = get_object_or_404(Job_Seeker, user=request.user)
+
+
+    # Get applied jobs
+    applied_jobs = JobApplication.objects.filter(seeker=seeker)
+
+    return render(request, "seeker/applied_jobs.html", {
+        "applied_jobs": applied_jobs
+    })
+
+def seeker_shortlisted_jobs(request):
+    # Get logged-in user’s Job_Seeker profile
+    seeker = get_object_or_404(Job_Seeker, user=request.user)
+
+    # Get all shortlisted entries for this seeker
+    shortlisted_jobs = ShortlistedCandidate.objects.filter(seeker=seeker).select_related('job')
+
+    return render(request, "seeker/shortlisted_jobs.html", {
+        "shortlisted_jobs": shortlisted_jobs
+    })

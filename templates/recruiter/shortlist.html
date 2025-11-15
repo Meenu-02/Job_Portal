@@ -1,0 +1,48 @@
+{% extends "recruiter/recruiter.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Shortlisted Candidates</h2>
+
+    {% if shortlist %}
+        <table class="table text-start align-middle table-bordered table-hover mb-0">
+            <thead>
+                <tr>
+                    <th>Candidate Name</th>
+                    <th>Email</th>
+                    <th>Job Title</th>
+
+                    <th>Profile</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for app in shortlist %}
+                <tr>
+                    <td>{{ app.seeker.name }}</td>
+                    <td>{{ app.seeker.email }}</td>
+                    <td>{{ app.job.title }}</td>
+
+
+                    <!-- View Profile -->
+                    <td>
+                        <a href="{% url 'app_profile' app.seeker.id %}"
+                           class="btn btn-sm btn-info">
+                            View Profile
+                        </a>
+                    </td>
+
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    {% else %}
+        <div class="alert alert-warning">
+            No shortlisted candidates yet.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

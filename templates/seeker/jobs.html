@@ -80,6 +80,12 @@
 
 <div class="container">
     <h2>Available Job Openings</h2>
+    {% for message in messages %}
+         <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        {{message}}
+         </div>
+						{% endfor %}
+
 
     {% for job in jobs %}
     <div class="job-card">
