@@ -1,0 +1,92 @@
+{% extends 'admin/admin.html' %}
+{% block search %}
+<form class="d-none d-md-flex ms-4">
+<!--                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">-->
+     {{ shortlistFilter.form }}
+
+                </form>
+{% endblock search %}
+
+{% block content %}
+
+<style>
+    body {
+        background-color: #0d1117;
+        color: white;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    table {
+        width: 90%;
+        margin: 40px auto;
+        border-collapse: collapse;
+        background: #161b22;
+        color: white;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th, td {
+        padding: 14px;
+        text-align: center;
+        border-bottom: 1px solid #30363d;
+    }
+
+    th {
+        background-color: #1f2937;
+        font-size: 1rem;
+        letter-spacing: 1px;
+    }
+
+    tr:hover {
+        background-color: #21262d;
+    }
+
+    a.view-btn {
+        padding: 6px 12px;
+        background-color: #1e40af;
+        color: white;
+        text-decoration: none;
+        border-radius: 6px;
+        font-size: 0.9rem;
+    }
+
+    a.view-btn:hover {
+        background-color: #2563eb;
+    }
+</style>
+
+
+
+<table>
+    <thead>
+        <tr>
+            <th>Candidate Name</th>
+            <th>Company Name</th>
+            <th>Job Title</th>
+            <th>Profile</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for app in shortlisted %}
+        <tr>
+            <td>{{ app.seeker.name }}</td>
+            <td>{{ app.job.company_name }}</td>
+            <td>{{ app.job.title }}</td>
+            <td>
+                 <a href="{% url 'app_profile' app.seeker.id %}"
+                           class="btn btn btn-sm btn-primary">
+                            View Profile
+                        </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No shortlisted candidates available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

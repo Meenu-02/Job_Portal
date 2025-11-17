@@ -1,0 +1,41 @@
+{% extends 'admin/admin.html' %}
+
+{% block search %}
+
+<form class="d-none d-md-flex ms-4">
+<!--                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">-->
+     {{ jobFilter.form }}
+
+                </form>
+{% endblock search %}
+
+{% block content %}
+
+
+<table class="table text-start align-middle table-bordered table-hover mb-0">
+    <thead>
+        <tr>
+            <th>Recruiter</th>
+            <th>Company</th>
+            <th>Job Title</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for job in jobs %}
+        <tr>
+            <td>{{ job.user.name }}</td>
+            <td>{{ job.company_name }}</td>
+            <td>{{ job.title }}</td>
+            <td>
+                <a href="{% url 'admin_job_details' job.id %}">View Details</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+
+{% endblock %}

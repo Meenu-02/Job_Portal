@@ -1,5 +1,13 @@
 {% extends "recruiter/recruiter.html" %}
 
+{% block search %}
+<form class="d-none d-md-flex ms-4">
+<!--                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">-->
+     {{ shortlistFilter.form }}
+
+                </form>
+{% endblock search %}
+
 {% block content %}
 <div class="container mt-4">
     <h2 class="mb-3">Shortlisted Candidates</h2>
@@ -28,7 +36,7 @@
                     <!-- View Profile -->
                     <td>
                         <a href="{% url 'app_profile' app.seeker.id %}"
-                           class="btn btn-sm btn-info">
+                           class="btn btn btn-sm btn-primary">
                             View Profile
                         </a>
                     </td>

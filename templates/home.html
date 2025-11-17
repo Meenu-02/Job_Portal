@@ -77,19 +77,43 @@
         <div class="container">
             <div class="row g-5 align-items-center">
                 <div class="col-lg-6 py-6 pb-0 pt-lg-0">
-                    <h3 class="text-primary mb-3">Dream. Apply. Achieve</h3>
+                    <h3 class="text-primary mb-3">JobWali.com</h3>
                     <h1 class="display-3 mb-3">Your career starts here</h1>
                     <h2 class="typed-text-output d-inline"></h2>
                     <div class="typed-text d-none">One platform. Endless opportunities</div>
-                    <div class="d-flex align-items-center pt-5">
-                        <a href=" {% static '' %} " class="btn btn-primary py-3 px-5 me-5">Login</a>
-<!--                        <button type="button" class="btn-play" data-bs-toggle="modal"-->
-<!--                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">-->
-<!--                            <span></span>-->
-<!--                        </button>-->
-<!--                        <h5 class="ms-4 mb-0 d-none d-sm-block">Play Video</h5>-->
-                        <a href=" {% static '' %} " class="btn btn-primary py-3 px-5 me-5">Register</a>
-                    </div>
+<!--                    <div class="d-flex align-items-center pt-5">-->
+<!--                        <a href=" {% static '' %} " class="btn btn-primary py-3 px-5 me-5">Login</a>-->
+<!--&lt;!&ndash;                        <button type="button" class="btn-play" data-bs-toggle="modal"&ndash;&gt;-->
+<!--&lt;!&ndash;                            data-src="https://www.youtube.com/embed/DWRcNpR6Kdc" data-bs-target="#videoModal">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <span></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </button>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <h5 class="ms-4 mb-0 d-none d-sm-block">Play Video</h5>&ndash;&gt;-->
+<!--                        <a href=" {% static '' %} " class="btn btn-primary py-3 px-5 me-5">Register</a>-->
+<!--                    </div>-->
+                    <div class="container text-center" style="margin-top: 60px;">
+
+    <!-- Login Button (big and wide) -->
+    <a href="{% url 'login_view' %}"
+       class="btn btn-primary py-3 px-5 w-50 mb-4">
+        Login
+    </a>
+
+    <!-- Two Register Buttons Side by Side -->
+    <div class="d-flex justify-content-center gap-3">
+
+        <a href="{% url 'recruiter_add' %}"
+           class="btn btn-primary py-3 px-4">
+            Recruiter Register
+        </a>
+
+        <a href="{% url 'seeker_add' %}"
+           class="btn btn-primary py-3 px-4">
+            Seeker Register
+        </a>
+
+    </div>
+
+</div>
                 </div>
                 <div class="col-lg-6">
                     <img class="img-fluid" src=" {% static 'img/profile.png' %} " alt="">

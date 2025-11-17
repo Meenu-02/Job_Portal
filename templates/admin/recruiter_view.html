@@ -1,4 +1,14 @@
 {% extends 'admin/admin.html' %}
+
+{% block search %}
+
+<form class="d-none d-md-flex ms-4">
+<!--                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">-->
+     {{ recruiterFilter.form }}
+
+                </form>
+{% endblock search %}
+
 {% block content %}
 
 <table class="table text-start align-middle table-bordered table-hover mb-0">

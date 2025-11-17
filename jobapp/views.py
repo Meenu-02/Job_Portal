@@ -1,8 +1,10 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import render, redirect
 
+from jobapp.filters import RecruiterFilter, SeekerFilter
 from jobapp.forms import LoginRegister, SeekerRegister, RecruiterRegister, JobPostForm
 from jobapp.models import Recruiter, Job_Seeker
 
@@ -33,7 +35,7 @@ def seeker_add(request):
             user1.user = a
             user1.save()
 
-            return redirect('home')
+            return redirect('login_view')
     return render(request,'seeker_registration.html',{'form1':form1,'form2':form2})
 
 def recruiter_add(request):
@@ -49,7 +51,8 @@ def recruiter_add(request):
 
         if form3.is_valid() and form4.is_valid():
             a = form3.save(commit=False)
-            a.is_seller = True
+            a.is_recruiter = True
+            a.is_seeker = False
             a.save()
 
 
@@ -57,7 +60,7 @@ def recruiter_add(request):
             user1.user = a
             user1.save()
 
-            return redirect('home')
+            return redirect('login_view')
 
 
     return render(request,'recruiter_registration.html',{'form1':form1,'form2':form2})
@@ -83,38 +86,56 @@ def login_view(request):
         if user is not None:
             login(request,user)
             if user.is_staff:
-                return redirect('home')  #url name
+                return redirect('admin_job_list')  #url name
             elif user.is_seeker:
-                return redirect('home')
+                return redirect('jobs')
             elif user.is_recruiter:
-                return redirect('home')
+                return redirect('jobform')
 
         else:
             messages.info(request,'Invalid Credentials')
 
     return render(request,'login.html')
 
-
+@login_required(login_url='login_view')
 def view_seeker(request):
     data= Job_Seeker.objects.all()
-    return render(request,'admin/seeker_view.html',{'view_seeker':data})
+    seekerFilter = SeekerFilter(request.GET, queryset=data)
+    s = seekerFilter.qs
+    context = {
+        'view_seeker': s,
+        'seekerFilter': seekerFilter
+    }
 
+    return render(request,'admin/seeker_view.html',context)
+
+@login_required(login_url='login_view')
 def view_recruiter(request):
     data= Recruiter.objects.all()
-    return render(request,'admin/recruiter_view.html',{'view_recruiter':data})
+    recruiterFilter = RecruiterFilter(request.GET, queryset=data)
+    s = recruiterFilter.qs
+    context = {
+        'view_recruiter': s,
+        'recruiterFilter': recruiterFilter
+    }
 
+    return render(request,'admin/recruiter_view.html',context)
+
+
+@login_required(login_url='login_view')
 def delete_seeker(request,id):
     data=Job_Seeker.objects.get(id=id)
 
     data.delete()
     return redirect('view_seeker')
 
-
+@login_required(login_url='login_view')
 def delete_recruiter(request,id):
     data=Recruiter.objects.get(id=id)
     data.delete()
     return redirect('view_recruiter')
 
+@login_required(login_url='login_view')
 def update_seeker(request,id):
     data=Job_Seeker.objects.get(id=id)
     form=SeekerRegister(instance=data) #form will be with data
@@ -127,6 +148,7 @@ def update_seeker(request,id):
              return  redirect('view_seeker')
     return render(request,'admin/seeker_update.html',{'update':form})
 
+@login_required(login_url='login_view')
 def update_recruiter(request,id):
     data=Recruiter.objects.get(id=id)
     form=RecruiterRegister(instance=data) #form will be with data
@@ -140,13 +162,11 @@ def update_recruiter(request,id):
     return render(request,'admin/recruiter_update.html',{'update':form})
 
 
+@login_required(login_url='login_view')
 def job_form_upload(request):
 
     data=request.user
     recruiter_data=Recruiter.objects.get(user=data)
-
-
-
 
     if request.method == 'POST':
         form = JobPostForm(request.POST, request.FILES)
@@ -156,7 +176,7 @@ def job_form_upload(request):
             object.user = recruiter_data
             object.save()
 
-            return redirect('home')
+            return redirect('joblist')
     else:
         form = JobPostForm()
     return render(request, 'recruiter/job_form.html', {
@@ -164,7 +184,9 @@ def job_form_upload(request):
     })
 
 
-
+def logout_view(request):
+    logout(request)
+    return redirect('home')
 
 
 

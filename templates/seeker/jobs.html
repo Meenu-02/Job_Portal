@@ -1,5 +1,14 @@
 {% extends 'seeker/seeker.html' %}
 
+{% block search %}
+
+<form class="d-none d-md-flex ms-4">
+<!--                    <input class="form-control bg-dark border-0" type="search" placeholder="Search">-->
+     {{ jobFilter.form }}
+
+                </form>
+{% endblock search %}
+
 {% block content %}
 <style>
     body {
@@ -107,5 +116,17 @@
 <!--    </div>-->
     {% endfor %}
 </div>
+<script>
+  // Select all alerts
+  const alerts = document.querySelectorAll('.alert');
+
+  // Hide each alert after 3 seconds (3000 ms)
+  alerts.forEach(alert => {
+    setTimeout(() => {
+      alert.classList.remove('show'); // Bootstrap fade out
+      alert.style.display = 'none';   // Remove from view
+    }, 3000);
+  });
+</script>
 
 {% endblock %}
